@@ -3,8 +3,12 @@ class Paciente:
         self.nome = nome
         self.tipoSanguineo = tipoSanguineo
         self.dataNasc = dataNasc
+    
+    def __repr__(self):
+        return self.nome + ', tipo sanguíneo: ' + self.tipoSanguineo + ', nascido em: ' + self.dataNasc
 
 class MaxHeap:
+
     def __init__(self):
         self.heap = [0]
 
@@ -26,8 +30,9 @@ class MaxHeap:
     def peek(self):
         if len(self.heap) != 1:
             return self.heap[1]
-        return False
-
+        else:
+            return str("Não há próximo paciente")
+            
     def __swap(self, i, j):
         self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
 
@@ -64,9 +69,12 @@ def escolha(opcao):
             while(prioridade < 1 or prioridade > 10):
                 prioridade = int(input("Digite a prioridade do paciente(1-10): "))
             global ordem
+            global cont
             item = (prioridade, ordem, paciente)
             h.put(item)
             ordem += 1
+            cont -= 1
+            print("Contador atual: ", cont)
         case 2:
             if(h.peek()):
                 chamados.append(h.peek())
@@ -80,7 +88,11 @@ def escolha(opcao):
             else:
                 for i in range(1,6):
                     print(chamados[len(chamados) - i])
+        case _:
+            print("Opção inválida")
+        
 ## Sistema ##
+cont = 999
 ordem = 0
 h = MaxHeap()
 chamados = list()
